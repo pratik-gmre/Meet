@@ -1,3 +1,5 @@
+import { nanoid } from "nanoid";
+
 import {
   pgTable,
   text,
@@ -65,3 +67,13 @@ export const verification = pgTable("verification", {
     () => /* @__PURE__ */ new Date()
   ),
 });
+
+export const agents = pgTable("agents",{
+  id:text("id").primaryKey().$defaultFn(() => nanoid()),
+  name:text("name").notNull()
+  ,
+  userId:text("user_id").notNull().references(()=>user.id,{onDelete:'cascade'}),
+  instructions:text("instructions").notNull(),
+  createdAt:timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").notNull().defaultNow()
+})

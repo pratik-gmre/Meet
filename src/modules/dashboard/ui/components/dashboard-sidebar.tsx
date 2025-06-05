@@ -85,24 +85,22 @@ export const DashboardSidebar = () => {
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>
-              {firstSection.map((item, index) => (
-                <SidebarMenuItem key={index}>
-                  <SidebarMenuButton
-                    asChild
-                    className={cn(
-                      "h-10 hover:bg-linear-to-r/oklch border border-transparent hover:border-[#5d6b68]/10 from-sidebar-accent from-5% via-30% via-sidebar/50 to-sidebar/50",
-                      pathname === item.href &&
-                        "bg-linear-to-r/oklch border-[#5d6b68]/10"
-                    )}
-                    isActive={pathname === item.href}
-                  >
-                    <Link href={item.href} className="flex items-center jusce">
-                      <item.icon className="mr-2 font-medium h-4 w-4" />
-                      <span>{item.label}</span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
+              <SidebarMenuItem>
+                <SidebarMenuButton
+                  asChild
+                  className={cn(
+                    "h-10 hover:bg-linear-to-r/oklch border border-transparent hover:border-[#5d6b68]/10 from-sidebar-accent from-5% via-30% via-sidebar/50 to-sidebar/50",
+                    pathname === "/upgrade" &&
+                      "bg-linear-to-r/oklch border-[#5d6b68]/10"
+                  )}
+                  isActive={pathname === "/upgrade"}
+                >
+                  <Link href="/upgrade" className="flex items-center jusce">
+                    <StarIcon className="mr-2 font-medium h-4 w-4" />
+                    <span>Upgrade</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
