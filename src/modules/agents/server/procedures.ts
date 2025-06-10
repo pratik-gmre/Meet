@@ -56,6 +56,7 @@ remove:protectedProcedure.input(z.object({id:z.string()})).mutation(async({ctx,i
         .select({
           meetingCount: sql<number>`5`,
           ...getTableColumns(agents),
+          
         })
         .from(agents)
         .where(
