@@ -4,12 +4,13 @@ import Image from "next/image";
 type Props = {
   title: string;
   description: string;
+  image?: string
 };
-export const EmptyState = ({ title, description }: Props) => {
+export const EmptyState = ({ title, description, image='/empty.svg' }: Props) => {
   return (
     <div className="py-4 px-4 flex flex-col items-center justify-center">
       <Image
-        src={"/empty.svg"}
+        src={image}
         width={240}
         height={240}
         alt={"Empty"}
