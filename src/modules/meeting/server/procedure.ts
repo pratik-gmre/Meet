@@ -13,10 +13,36 @@ import {
 import { TRPCError } from "@trpc/server";
 import { meetingInsertSchema, meetingUpdateSchema } from "../ui/schema";
 import { MeetingStatus } from "../types";
+import { streamVideo } from "@/lib/stream-video";
+import { generateAvatarUri } from "@/lib/avatar";
 
 export const meetingRouter = createTRPCRouter({
+  generateToken: protectedProcedure.mutation(async ({ ctx }) => {
+    await streamVideo.upsertUsers([
+      {
+        id: ctx.auth.user.id,
+        name: ctx.auth.user.name,
+        role: "admin",
+        image:
+          ctx.auth.user.image ??
+          generateAvatarUri({ seed: ctx.auth.user.name, variant: "initials" }),
+      },
+    ]);
+
+    const expirationTime = Math.floor(Date.now() / 1000) + 3600;
+    const issueAt = Math.floor(Date.now() / 1000) - 60;
+
+    const token = streamVideo.generateUserToken({
+      user_id: ctx.auth.user.id,
+      exp: expirationTime,
+      validity_in_seconds: issueAt,
+    });
+
+    return token;
+  }),
+
   remove: protectedProcedure
-    .input(z.object({id:z.string()}))
+    .input(z.object({ id: z.string() }))
     .mutation(async ({ ctx, input }) => {
       const [removeMeeting] = await db
         .delete(meetings)
@@ -61,7 +87,53 @@ export const meetingRouter = createTRPCRouter({
           userId: ctx.auth.user.id,
         })
         .returning();
-      // create stream call
+
+      const call = streamVideo.video.call("default", createMeeting.id);
+      await call.create({
+        data: {
+          created_by_id: ctx.auth.user.id,
+          custom: {
+            meetingId: createMeeting.id,
+            meetingName: createMeeting.name,
+          },
+          settings_override: {
+            transcription: {
+              language: "en",
+              mode: "auto-on",
+              closed_caption_mode: "auto-on",
+            },
+            recording: {
+              mode: "auto-on",
+              quality: "1080p",
+            },
+          },
+        },
+      });
+
+      const [existingAgent] = await db
+        .select()
+        .from(agents)
+        .where(eq(agents.id, createMeeting.agentId));
+
+      if (!existingAgent) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Agent not found",
+        });
+      }
+
+      await streamVideo.upsertUsers([
+        {
+          id: existingAgent.id,
+          name: existingAgent.name,
+          role: "user",
+          image: generateAvatarUri({
+            seed: existingAgent.name,
+            variant: "botttsNeutral",
+          }),
+        },
+      ]);
+
       return createMeeting;
     }),
 
@@ -71,14 +143,13 @@ export const meetingRouter = createTRPCRouter({
       const [existingMeeting] = await db
         .select({
           ...getTableColumns(meetings),
-          agent:agents,
+          agent: agents,
           duration: sql<number>`EXTRACT(EPOCH FROM(ended_at - started_at))`.as(
             "duration"
           ),
-
         })
         .from(meetings)
-        .innerJoin(agents,eq(meetings.agentId , agents.id))
+        .innerJoin(agents, eq(meetings.agentId, agents.id))
         .where(
           and(eq(meetings.id, input.id), eq(meetings.userId, ctx.auth.user.id))
         );
@@ -103,18 +174,20 @@ export const meetingRouter = createTRPCRouter({
           .default(DEFAULT_PAGE_SIZE),
         search: z.string().nullish(),
         agentId: z.string().nullish(),
-        status: z.enum([
-          MeetingStatus.Upcoming,
+        status: z
+          .enum([
+            MeetingStatus.Upcoming,
 
-          MeetingStatus.Active,
-          MeetingStatus.Completed,
-          MeetingStatus.Processing,
-          MeetingStatus.Cancelled,
-        ]).nullish(),
+            MeetingStatus.Active,
+            MeetingStatus.Completed,
+            MeetingStatus.Processing,
+            MeetingStatus.Cancelled,
+          ])
+          .nullish(),
       })
     )
     .query(async ({ ctx, input }) => {
-      const { search, page, pageSize,status,agentId } = input;
+      const { search, page, pageSize, status, agentId } = input;
 
       const data = await db
         .select({
@@ -130,8 +203,8 @@ export const meetingRouter = createTRPCRouter({
           and(
             eq(meetings.userId, ctx.auth.user.id),
             search ? ilike(meetings.name, `%${search}`) : undefined,
-            status ? eq(meetings.status,status): undefined,
-            agentId ? eq(meetings.agentId,agentId): undefined
+            status ? eq(meetings.status, status) : undefined,
+            agentId ? eq(meetings.agentId, agentId) : undefined
           )
         )
         .orderBy(desc(meetings.createdAt), desc(meetings.id))
