@@ -19,6 +19,8 @@ export const AgentsView = () => {
   const { data, isLoading, isError } = useSuspenseQuery(
     trpc.agents.getMany.queryOptions({...filters})
   );
+  console.log("this is data", data);
+  
 
   return (
     <div className="flex-1 pb-4 px-4 md:px-8 flex flex-col gap-y-4 ">

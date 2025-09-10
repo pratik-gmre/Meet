@@ -29,13 +29,13 @@ export const meetingRouter = createTRPCRouter({
       },
     ]);
 
-    const expirationTime = Math.floor(Date.now() / 1000) + 3600;
+    const expirationTime = Math.floor(Date.now() / 1000) + 3600
     const issueAt = Math.floor(Date.now() / 1000) - 60;
 
     const token = streamVideo.generateUserToken({
       user_id: ctx.auth.user.id,
       exp: expirationTime,
-      validity_in_seconds: issueAt,
+
     });
 
     return token;

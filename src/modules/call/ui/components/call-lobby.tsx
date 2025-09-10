@@ -11,7 +11,7 @@ import {
 } from "@stream-io/video-react-sdk";
 import { LogInIcon } from "lucide-react";
 import Link from "next/link";
-
+import "@stream-io/video-react-sdk/dist/css/styles.css";
 type Props = {
   onJoin: () => void;
 };
@@ -21,26 +21,29 @@ const DisabledVideoPreview = () => {
 
   return (
     <DefaultVideoPlaceholder
-      participant={{
-        name: data?.user.name ?? "",
-        image:
-          data?.user.image ??
-          generateAvatarUri({
-            seed: data?.user.name ?? "",
-            variant: "initials",
-          }),
-      }   as StreamVideoParticipant } 
+      participant={
+        {
+          name: data?.user.name ?? "",
+          image:
+            data?.user.image ??
+            generateAvatarUri({
+              seed: data?.user.name ?? "",
+              variant: "initials",
+            }),
+        } as StreamVideoParticipant
+      }
     />
   );
 };
 
-const AllowBrowserPermission = ()=>{
-    return (
-        <p className="text-sm">
-            Please grant your browser a permission to access your camera and microphone
-        </p>
-    )
-}
+const AllowBrowserPermission = () => {
+  return (
+    <p className="text-sm">
+      Please grant your browser a permission to access your camera and
+      microphone
+    </p>
+  );
+};
 
 export const CallLobby = ({ onJoin }: Props) => {
   const { useCameraState, useMicrophoneState } = useCallStateHooks();
@@ -58,20 +61,24 @@ export const CallLobby = ({ onJoin }: Props) => {
             <h6 className="text-lg font-medium">Ready to join</h6>
             <p className="text-sm">Set up your call before joining</p>
           </div>
-          <VideoPreview DisabledVideoPreview={
-            hasBrowserMediaPermission ? DisabledVideoPreview : AllowBrowserPermission
-          }/>
+          <VideoPreview
+            DisabledVideoPreview={
+              hasBrowserMediaPermission
+                ? DisabledVideoPreview
+                : AllowBrowserPermission
+            }
+          />
           <div className="flex gap-x-2">
-            <ToggleAudioPreviewButton/>
-            <ToggleVideoPreviewButton/>
+            <ToggleAudioPreviewButton />
+            <ToggleVideoPreviewButton />
           </div>
           <div className="flex gap-x-2 justify-between w-full">
-            <Button asChild variant={"ghost"}> 
-                <Link href={'/meetings'}>Cancel</Link>
+            <Button asChild variant={"ghost"}>
+              <Link href={"/meetings"}>Cancel</Link>
             </Button>
             <Button onClick={onJoin}>
-                <LogInIcon/>
-                Join 
+              <LogInIcon />
+              Join
             </Button>
           </div>
         </div>

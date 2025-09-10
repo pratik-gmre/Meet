@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "db:push": "drizzle-kit push",
-    "db:studio": "drizzle-kit studio"
+    "db:studio": "drizzle-kit studio",
+    "dev:webhook": "ngrok http --url=summary-hagfish-fully.ngrok-free.app 3000"
   },
   "dependencies": {
     "@dicebear/collection": "^9.2.2",
@@ -42,6 +43,7 @@
     "@radix-ui/react-toggle-group": "^1.1.10",
     "@radix-ui/react-tooltip": "^1.2.7",
     "@stream-io/node-sdk": "^0.4.24",
+    "@stream-io/openai-realtime-api": "^0.3.3",
     "@stream-io/video-react-sdk": "^1.18.4",
     "@tanstack/react-query": "^5.80.1",
     "@tanstack/react-table": "^8.21.3",
@@ -92,5 +94,10 @@
     "tsx": "^4.19.4",
     "tw-animate-css": "^1.3.3",
     "typescript": "^5"
-  }
+  },
+  "description": "This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

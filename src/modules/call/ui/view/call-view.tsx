@@ -18,17 +18,16 @@ export const CallView = ({ meetingId }: Props) => {
     })
   );
 
-  if(data.status === "completed"){
+  if (data.status === "completed") {
     return (
-        <div className="flex h-screen items-center justify-center">
-            <ErrorState title="Meeting is completed" description="This meeting is completed"/>
-        </div>
-    )
+      <div className="flex h-screen items-center justify-center">
+        <ErrorState
+          title="Meeting is completed"
+          description="This meeting is completed"
+        />
+      </div>
+    );
   }
 
-  return (
-    <CallProvider meetingId={meetingId} meetingName={data.name}/>
-  )
-  
-
+  return <CallProvider meetingId={meetingId} meetingName={data.name} />;
 };

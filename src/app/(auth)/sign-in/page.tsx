@@ -7,20 +7,17 @@ import React from "react";
 
 type Props = {};
 
-const page = async(props: Props) => {
+const page = async (props: Props) => {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
 
-   const session = await auth.api.getSession({
-      headers: await headers(),
-    });
-  
-    if (!!session) {       //!!session treat session as boolean and session is treated as its type so use !!session
-      redirect("/");
-    }
+  if (!!session) {
+    //!!session treat session as boolean and session is treated as its type so use !!session
+    redirect("/");
+  }
 
-  
-  return (
-    <SignInView/>
-  )
+  return <SignInView />;
 };
 
 export default page;

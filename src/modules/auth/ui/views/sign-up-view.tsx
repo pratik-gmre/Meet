@@ -144,7 +144,7 @@ export const SignUpView = () => {
                         <FormLabel>Password</FormLabel>
                         <FormControl>
                           <Input
-                            type="confirmPassword"
+                            type="password"
                             placeholder="********"
                             {...field}
                           />
@@ -206,11 +206,11 @@ export const SignUpView = () => {
                   </Button>
                 </div>
                 <Link
-                  href={"/sign-up"}
+                  href={"/sign-in"}
                   className="hover:underline hover:cursor-pointer text-blue-500"
                 >
                   <div className="text-center text-sm">
-                    Don&apos;t have an account?
+                    Already have an account?
                   </div>
                 </Link>
               </div>
