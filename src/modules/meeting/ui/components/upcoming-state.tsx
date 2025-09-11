@@ -1,6 +1,6 @@
 import { EmptyState } from "@/app/(dashboard)/agents/empty-state";
 import { Button } from "@/components/ui/button";
-import { BanIcon, VideoIcon } from "lucide-react";
+import {  VideoIcon } from "lucide-react";
 import Link from "next/link";
 
 type Props = {

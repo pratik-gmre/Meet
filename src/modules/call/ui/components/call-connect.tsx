@@ -37,27 +37,7 @@ export const CallConnect = ({
   );
 
   const [client, setClient] = useState<StreamVideoClient>();
-  //   useEffect(() => {
-  //     const _client = StreamVideoClient.getOrCreateInstance({
-  //       apiKey: process.env.NEXT_PUBLIC_STREAM_VIDEO_API_KEY!,
-  //       user: {
-  //         id: userId,
-  //         name: userName,
-  //         image: userImage,
-  //       },
-  //       tokenProvider: async () => {
-  //         const token = await generateToken(); // calls the TRPC mutation
-  //         console.log("got token:", token);
-  //         return token;
-  //       },
-  //     });
-  // _client.connectUser()
-  //     setClient(_client);
-  //     return () => {
-  //       _client.disconnectUser();
-  //       setClient(undefined);
-  //     };
-  //   }, [userId, userName, userImage, generateToken]);
+ 
 
   useEffect(() => {
     const _client = new StreamVideoClient({

@@ -1,7 +1,7 @@
 import React from 'react'
 import { useMeetingFilters } from '../../hooks/use-meetings-filters'
 import { Input } from '@/components/ui/input'
-import { SearchIcon, SlidersHorizontalIcon } from 'lucide-react'
+import { SlidersHorizontalIcon } from 'lucide-react'
 
 //whatever i write in input filed is passed in url as query params and vice versa by due to nuqs
 

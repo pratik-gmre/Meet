@@ -1,16 +1,14 @@
 "use client";
 import { DataTable } from "@/components/ui/data-table";
 import { useTRPC } from "@/trpc/client";
-import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
+import {  useSuspenseQuery } from "@tanstack/react-query";
 import { columns } from "../components/columns";
 import { EmptyState } from "@/app/(dashboard)/agents/empty-state";
 import { useRouter } from "next/navigation";
 import { useMeetingFilters } from "../../hooks/use-meetings-filters";
 import { DataPagination } from "@/components/agent-paginated";
 
-// type Props = {
-//     meetingId:string
-// }
+
 
 export const MeetingsView = () => {
   const trpc = useTRPC();

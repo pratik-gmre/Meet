@@ -24,7 +24,6 @@ import { meetingInsertSchema, meetingUpdateSchema } from "../ui/schema";
 import { MeetingStatus, StreamTranscript } from "../types";
 import { streamVideo } from "@/lib/stream-video";
 import { generateAvatarUri } from "@/lib/avatar";
-import { X } from "lucide-react";
 import JSONL from "jsonl-parse-stringify";
 import { streamChat } from "@/lib/stream-chat";
 

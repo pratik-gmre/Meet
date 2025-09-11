@@ -7,7 +7,7 @@ import { DashboardCmd } from "./dashboard-cmd";
 import { useEffect, useState } from "react";
 
 export const DashboardNavbar = () => {
-  const { state, toggleSidebar, isMobile } = useSidebar();
+  const { state, toggleSidebar } = useSidebar();
 
   const [commmandOpen , setCommandOpen]  = useState(false)
 

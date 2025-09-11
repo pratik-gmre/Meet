@@ -80,17 +80,11 @@ export const MeetingIdView = ({ meetingId }: Props) => {
           onRemove={handleRemoveMeeting}
         />
 
-        {isCancelled && <CancelledState/>}
+        {isCancelled && <CancelledState />}
         {isCompleted && <CompletedState data={data} />}
-        {isUpcoming && (
-          <UpcomingState
-            meetingId={meetingId}
-
-
-          />
-        )}
-        {isProcessing && <ProcessingState/>}
-        {isActive && <ActiveState meetingId={meetingId}/>}
+        {isUpcoming && <UpcomingState meetingId={meetingId} />}
+        {isProcessing && <ProcessingState />}
+        {isActive && <ActiveState meetingId={meetingId} />}
       </div>
     </>
   );

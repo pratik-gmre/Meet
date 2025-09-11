@@ -11,13 +11,11 @@ import {
   ClockFadingIcon,
   CornerDownRightIcon,
   LoaderIcon,
-  VideoIcon,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { MeetingGetMany } from "../../types";
 import { cn } from "@/lib/utils";
 
-type Meeting = MeetingGetMany[number];
 
 function formatDuration(seconds: number) {
   return humanzieDuration(seconds * 1000, {

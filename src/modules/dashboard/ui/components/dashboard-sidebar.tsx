@@ -7,7 +7,6 @@ import {
   SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
-  SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
@@ -32,13 +31,7 @@ const firstSection = [
     href: "/agents",
   },
 ];
-const secondSection = [
-  {
-    icon: StarIcon,
-    label: "Upgrade",
-    href: "/upgrade",
-  },
-];
+
 
 export const DashboardSidebar = () => {
   const pathname = usePathname();
