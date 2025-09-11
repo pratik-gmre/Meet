@@ -74,7 +74,7 @@ const Page = async() => {
 
         <p className="mt-8 text-sm text-slate-500">
           Want early access? Leave your email at pratikgmre13@gmail.com 
-          and we'll invite early adopters first.
+          and we&apos;ll label invite early adopters first.
         </p>
       </div>
     </main>

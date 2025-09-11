@@ -15,13 +15,13 @@ import {
 import { useIsMobile } from "@/hooks/use-mobile"
 import {
   Drawer,
-  DrawerClose,
+
   DrawerContent,
   DrawerDescription,
-  DrawerFooter,
+
   DrawerHeader,
   DrawerTitle,
-  DrawerTrigger,
+
 } from "@/components/ui/drawer"
 
 function Command({
