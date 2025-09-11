@@ -16,8 +16,12 @@ function verifySignatureWithSDK(body: string, signature: string): boolean {
   return streamVideo.verifyWebhook(body, signature);
 }
 export async function POST(req: NextRequest) {
+    console.log("this is router being hitted");
+    
   const signature = req.headers.get("x-signature");
   const apikey = req.headers.get("x-api-key");
+  console.log("this is apikey", apikey);
+  
 
   if (!signature || !apikey) {
     return NextResponse.json(
@@ -27,6 +31,8 @@ export async function POST(req: NextRequest) {
   }
 
   const body = await req.text();
+  console.log("this is body ", body);
+  
 
   if (!verifySignatureWithSDK(body, signature)) {
     return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
@@ -37,10 +43,14 @@ export async function POST(req: NextRequest) {
   } catch (error) {
     return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
   }
+  console.log("this is payload", payload);
+  
 
   const eventType = (payload as Record<string, unknown>)?.types;
+  console.log("this is eventtype ", eventType);
+  
 
-  if (eventType === "call.session.started") {
+  if (eventType === "call.session_started") {
     const event = payload as CallSessionStartedEvent;
     const meetingId = event.call.custom?.meetingId;
 
@@ -84,6 +94,9 @@ export async function POST(req: NextRequest) {
       openAiApiKey: process.env.OPENAI_API_KEY!,
       agentUserId: existingAgent.id,
     });
+    console.log("this is realtime client", realtimeClient.isConnected());
+
+    
 
     realtimeClient.updateSession({
       instructions: existingAgent.instructions,

@@ -7,7 +7,7 @@ const Page = async () => {
   const session = await auth.api.getSession({
     headers: await headers(),
   });
-  console.log("this is session", session);
+
 
   if (session == null) {
     redirect("/sign-in");

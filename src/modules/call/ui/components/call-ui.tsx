@@ -9,10 +9,13 @@ type Props = {
 };
 
 export const CallUi = ({ meetingName }: Props) => {
+  
   const call = useCall();
   const [show, setShow] = useState<"lobby" | "call" | "ended">("lobby");
 
   const handleJoin = async () => {
+    console.log("this is triggered");
+    
     if (!call) return;
 
     await call.join();

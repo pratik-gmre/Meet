@@ -19,7 +19,7 @@ export const AgentsView = () => {
   const { data, isLoading, isError } = useSuspenseQuery(
     trpc.agents.getMany.queryOptions({...filters})
   );
-  console.log("this is data", data);
+
   
 
   return (

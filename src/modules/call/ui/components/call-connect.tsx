@@ -1,3 +1,5 @@
+"use client";
+
 import { useTRPC } from "@/trpc/client";
 import {
   Call,
@@ -35,18 +37,46 @@ export const CallConnect = ({
   );
 
   const [client, setClient] = useState<StreamVideoClient>();
+  //   useEffect(() => {
+  //     const _client = StreamVideoClient.getOrCreateInstance({
+  //       apiKey: process.env.NEXT_PUBLIC_STREAM_VIDEO_API_KEY!,
+  //       user: {
+  //         id: userId,
+  //         name: userName,
+  //         image: userImage,
+  //       },
+  //       tokenProvider: async () => {
+  //         const token = await generateToken(); // calls the TRPC mutation
+  //         console.log("got token:", token);
+  //         return token;
+  //       },
+  //     });
+  // _client.connectUser()
+  //     setClient(_client);
+  //     return () => {
+  //       _client.disconnectUser();
+  //       setClient(undefined);
+  //     };
+  //   }, [userId, userName, userImage, generateToken]);
+
   useEffect(() => {
-    const _client = StreamVideoClient.getOrCreateInstance({
+    const _client = new StreamVideoClient({
       apiKey: process.env.NEXT_PUBLIC_STREAM_VIDEO_API_KEY!,
-      user: {
+    });
+
+    // 👇 Explicitly connect user here
+    _client.connectUser(
+      {
         id: userId,
         name: userName,
         image: userImage,
       },
-      tokenProvider: async () => {
-    return await generateToken(); 
-  },
-    });
+      async () => {
+        const token = await generateToken();
+        console.log("got token:", token);
+        return token;
+      }
+    );
 
     setClient(_client);
     return () => {
@@ -54,6 +84,8 @@ export const CallConnect = ({
       setClient(undefined);
     };
   }, [userId, userName, userImage, generateToken]);
+
+  //
 
   const [call, setCall] = useState<Call>();
   useEffect(() => {

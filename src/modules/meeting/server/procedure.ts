@@ -218,7 +218,7 @@ export const meetingRouter = createTRPCRouter({
         .where(
           and(
             eq(meetings.userId, ctx.auth.user.id),
-            search ? ilike(meetings.name, `%${search}`) : undefined
+            search ? ilike(meetings.name, `%${search}%`) : undefined,
           )
         );
 
