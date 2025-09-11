@@ -1,7 +1,19 @@
 
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 import React from "react";
 
-const Page = () => {
+const Page = async() => {
+
+   const session = await auth.api.getSession({
+      headers: await headers(),
+    });
+  
+  
+    if (session == null) {
+      redirect("/sign-in");
+    }
   return (
     <main className="min-h-screen bg-gradient-to-b from-white to-slate-50 flex items-center justify-center p-6">
       <div className="max-w-2xl w-full bg-white/90 backdrop-blur-md shadow-2xl rounded-2xl p-10 text-center">
