@@ -64,7 +64,8 @@ export const CallUi = ({ meetingName }: Props) => {
       await call.leave();
       console.log("call.leave() resolved");
     } catch (error) {
-      const msg = error ?? String(error);
+console.log( error);
+
      
     } finally {
       // Ensure UI never gets stuck in "call" even if leave throws

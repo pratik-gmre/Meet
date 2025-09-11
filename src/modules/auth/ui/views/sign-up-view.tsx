@@ -14,12 +14,13 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Alert, AlertTitle } from "@/components/ui/alert";
-import {  OctagonAlertIcon } from "lucide-react";
+import { OctagonAlertIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { authClient } from "@/lib/auth-client";
 
 import { useState } from "react";
+import Image from "next/image";
 
 const formSchema = z
   .object({
@@ -36,8 +37,6 @@ const formSchema = z
 type FormSchemaType = z.infer<typeof formSchema>;
 
 export const SignUpView = () => {
-
-
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState<boolean>(false);
   const form = useForm<FormSchemaType>({
@@ -217,7 +216,7 @@ export const SignUpView = () => {
             </form>
           </Form>
           <div className="bg-radial from-green-500 to-green-800 relative hidden md:flex flex-col gap-y-4 items-center justify-center">
-            <img src="/logo.svg" alt="logo" className="h-[92px] w-[92px]" />
+            <Image src="/logo.svg" alt="logo" width={92} height={92} />{" "}
             <p className="text-2xl font-semibold text-white">MeetIQ</p>
           </div>
         </CardContent>
