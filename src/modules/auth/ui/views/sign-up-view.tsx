@@ -38,7 +38,7 @@ type FormSchemaType = z.infer<typeof formSchema>;
 export const SignUpView = () => {
 
 
-  const [error, setError] = useState<String | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState<boolean>(false);
   const form = useForm<FormSchemaType>({
     resolver: zodResolver(formSchema),

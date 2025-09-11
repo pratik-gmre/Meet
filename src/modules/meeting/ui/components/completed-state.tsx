@@ -14,6 +14,8 @@ import { GeneratedAvatar } from "@/components/generated-avatar";
 import { format } from "date-fns";
 import { Badge } from "@/components/ui/badge";
 import { formatDuration } from "@/lib/utils";
+import { Transcript } from "./transcript";
+import { ChatProvider } from "./chat-provider";
 
 interface Props {
   data: MeetingGetOne;
@@ -46,13 +48,7 @@ export const CompletedState = ({ data }: Props) => {
                 <FileVideoIcon />
                 Recording
               </TabsTrigger>
-              <TabsTrigger
-                value="chat"
-                className="text-muted-foreground rounded-none bg-background data-[state=active]:shadow-none border-b-2 border-transparent data-[state=active]:border-b-primary data-[state=active]:text-accent-foreground h-full hover:text-accent-foreground"
-              >
-                <SparklesIcon />
-                Ask Ai
-              </TabsTrigger>
+              
             </TabsList>
             <ScrollBar orientation="horizontal"></ScrollBar>
           </ScrollArea>
@@ -114,25 +110,28 @@ export const CompletedState = ({ data }: Props) => {
                     h4: (props) => (
                       <h1 className="text-base font-medium mb-6" {...props} />
                     ),
-                    
+
                     p: (props) => (
                       <p className="leading-relaxed mb-6" {...props} />
                     ),
                     ul: (props) => (
                       <ul className="list-disc list-inside mb-6" {...props} />
                     ),
-                    li: (props) => (
-                      <li className="mb-1" {...props} />
-                    ),
+                    li: (props) => <li className="mb-1" {...props} />,
                     ol: (props) => (
-                      <ol className="list-decimal list-inside mb-6" {...props} />
+                      <ol
+                        className="list-decimal list-inside mb-6"
+                        {...props}
+                      />
                     ),
                     strong: (props) => (
                       <strong className="font-semibold" {...props} />
-                    )
-                    ,
+                    ),
                     code: (props) => (
-                      <code className="bg-gray-100 px-1 py-0.5 rounded" {...props} />
+                      <code
+                        className="bg-gray-100 px-1 py-0.5 rounded"
+                        {...props}
+                      />
                     ),
                     blockquote: (props) => (
                       <blockquote className="border-l-4 pl-4 my-4" {...props} />
@@ -144,6 +143,12 @@ export const CompletedState = ({ data }: Props) => {
               </div>
             </div>
           </div>
+        </TabsContent>
+        <TabsContent value="transcript">
+          <Transcript meetingId={data.id} />
+        </TabsContent>
+        <TabsContent value="chat">
+          <ChatProvider meetingId={data.id} meetingName={data.name} />
         </TabsContent>
       </Tabs>
     </div>

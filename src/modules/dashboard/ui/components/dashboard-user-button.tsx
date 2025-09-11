@@ -15,6 +15,7 @@ import {  ChevronRightIcon, CreditCardIcon, LogOutIcon, UserIcon } from "lucide-
 import { useRouter } from "next/navigation";
 
 export const DashboardUser = () => {
+  const router = useRouter()
   const { data, isPending } = authClient.useSession();
   if (isPending || !data?.user) return null;
 
@@ -58,11 +59,11 @@ export const DashboardUser = () => {
             
         </DropdownMenuLabel>
         <DropdownMenuSeparator/>
-        <DropdownMenuItem onClick={onLogout} className="cursor-pointer flex items-center justify-between">
+        <DropdownMenuItem onClick={()=>router.push("/upgrade")} className="cursor-pointer flex items-center justify-between">
             Billing 
             <CreditCardIcon className="size-4"/>
         </DropdownMenuItem>
-        <DropdownMenuItem className="cursor-pointer flex items-center justify-between">
+        <DropdownMenuItem onClick={onLogout} className="cursor-pointer flex items-center justify-between">
             Logout 
             <LogOutIcon className="size-4"/>
         </DropdownMenuItem>
