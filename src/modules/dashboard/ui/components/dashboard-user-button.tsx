@@ -63,7 +63,7 @@ export const DashboardUser = () => {
             Billing 
             <CreditCardIcon className="size-4"/>
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={onLogout} className="cursor-pointer flex items-center justify-between">
+        <DropdownMenuItem onClick={()=>{onLogout(); router.push("/sign-in")}}  className="cursor-pointer flex items-center justify-between">
             Logout 
             <LogOutIcon className="size-4"/>
         </DropdownMenuItem>
