@@ -14,6 +14,7 @@ export const EmptyState = ({ title, description, image='/empty.svg' }: Props) =>
         width={240}
         height={240}
         alt={"Empty"}
+        style={{ height: "auto" }}
         
       />
       <div className="flex flex-col gap-y-6  max-w-md mx-auto text-center">

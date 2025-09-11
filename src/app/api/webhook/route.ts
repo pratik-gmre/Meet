@@ -37,6 +37,8 @@ export async function POST(req: NextRequest) {
   if (!verifySignatureWithSDK(body, signature)) {
     return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
   }
+
+
   let payload: unknown;
   try {
     payload = JSON.parse(body) as Record<string, unknown>;
@@ -46,7 +48,7 @@ export async function POST(req: NextRequest) {
   console.log("this is payload", payload);
   
 
-  const eventType = (payload as Record<string, unknown>)?.types;
+  const eventType = (payload as Record<string, unknown>)?.type;
   console.log("this is eventtype ", eventType);
   
 
