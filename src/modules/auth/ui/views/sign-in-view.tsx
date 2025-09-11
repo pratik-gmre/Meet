@@ -41,7 +41,7 @@ export const SignInView = () => {
 
   const onSubmit = async (data: FormSchemaType) => {
     setError(null);
-    const { error } = await authClient.signIn.email(
+await authClient.signIn.email(
       {
         email: data.email,
         password: data.password,

@@ -63,14 +63,9 @@ export const CallUi = ({ meetingName }: Props) => {
       // if ((call as any).state && (call as any).state !== 'joined') { ... }
       await call.leave();
       console.log("call.leave() resolved");
-    } catch (err: any) {
-      const msg = err?.message ?? String(err);
-      // Tolerate duplicate-leave errors from the SDK
-      if (msg.includes("already been left") || msg.includes("already left")) {
-        console.warn("Ignored duplicate leave error:", msg);
-      } else {
-        console.error("Unexpected error while leaving:", err);
-      }
+    } catch (error) {
+      const msg = error ?? String(error);
+     
     } finally {
       // Ensure UI never gets stuck in "call" even if leave throws
       setShow("ended");

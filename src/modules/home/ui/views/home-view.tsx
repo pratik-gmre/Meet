@@ -194,7 +194,7 @@ export const HomeView = () => {
               </div>
               <h4 className="text-2xl font-bold text-foreground mb-4">Create Your Agent</h4>
               <p className="text-muted-foreground leading-relaxed">
-                Define your AI expert's specialization, knowledge base, and personality. Choose from templates or build from scratch.
+                Define your AI expert&apos; specialization, knowledge base, and personality. Choose from templates or build from scratch.
               </p>
             </div>
 

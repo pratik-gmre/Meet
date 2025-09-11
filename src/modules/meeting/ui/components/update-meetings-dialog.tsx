@@ -14,7 +14,7 @@ export const UpdateMeetingDialog = ({
   OnOpenChange,
   initalValue,
 }: Props) => {
-  const router = useRouter();
+
 
   return (
     <ResponsiveDialog
@@ -24,7 +24,7 @@ export const UpdateMeetingDialog = ({
       onOpenChange={OnOpenChange}
     >
       <MeetingForm
-        onSuccess={(id) => {
+        onSuccess={() => {
           OnOpenChange(false);
         }}
         onCancel={() => OnOpenChange(false)}
